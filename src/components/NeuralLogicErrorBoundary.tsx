@@ -16,7 +16,7 @@ export class NeuralLogicErrorBoundary extends Component<Props, State> {
     recoveryAttempts: 0
   };
 
-  public static getDerivedStateFromError(_: Error): State {
+  public static getDerivedStateFromError(): State {
     return { hasError: true, recoveryAttempts: 0 };
   }
 

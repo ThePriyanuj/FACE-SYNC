@@ -110,9 +110,9 @@ export function TeacherDashboard({
   }, []);
 
   // Biometric Processing Loop
-  const processVideoFrame = useCallback(async () => {
+  const processVideoFrame = useCallback(async function loop() {
     if (!videoRef.current || videoRef.current.readyState !== 4 || isInitializing || !selectedCourseCode) {
-      requestRef.current = requestAnimationFrame(processVideoFrame);
+      requestRef.current = requestAnimationFrame(loop);
       return;
     }
 
@@ -134,7 +134,7 @@ export function TeacherDashboard({
           // RPC Call to Match Face
           const { data, error } = await supabase.rpc('match_student_face', {
             match_embedding: descriptorArray,
-            match_threshold: 0.82, // Increased for strict security
+            match_threshold: 0.90, // Increased for strict security
             match_count: 1
           });
 
@@ -167,7 +167,7 @@ export function TeacherDashboard({
       lastMatchTimeRef.current = Date.now();
     }
 
-    requestRef.current = requestAnimationFrame(processVideoFrame);
+    requestRef.current = requestAnimationFrame(loop);
   }, [isInitializing, selectedCourseCode]);
 
   useEffect(() => {
