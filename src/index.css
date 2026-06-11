@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-glass-surface: rgba(255, 255, 255, 0.14);
+  --color-glass-surface-hover: rgba(255, 255, 255, 0.22);
+  --color-glass-border: rgba(255, 255, 255, 0.35);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.50);
+}
+
+@layer utilities {
+  .glass-accelerated {
+    background-color: var(--color-glass-surface);
+    border-color: var(--color-glass-border);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    transform: translateZ(0);
+    will-change: backdrop-filter;
+  }
+
+  .glass-accelerated:hover {
+    background-color: var(--color-glass-surface-hover);
+    border-color: var(--color-glass-border-hover);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
+}
+
+body {
+  @apply bg-slate-950 text-white min-h-screen font-sans antialiased;
+}
